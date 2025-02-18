@@ -30,8 +30,7 @@ ir jame pateikite savo mini užduotėles sprendimą.
 Taip pat, šiame faile galite pateikti individualius klausimus.
 
 ----------------------------------------------------------------------------
-
-#include <stdio.h>
+11:13 2025-02-18
 
 #define TRUE (1==1)
 #define FALSE (!TRUE)
@@ -50,9 +49,14 @@ int isRightTriangle(POINT A, POINT B, POINT C) {
     int BC_2 = returnSquare(B.x - C.x) + returnSquare(B.y - C.y);
     int CA_2 = returnSquare(C.x - A.x) + returnSquare(C.y - A.y);
 
-    if (AB_2 + BC_2 == CA_2 || AB_2 + CA_2 == BC_2 || CA_2 + BC_2 == AB_2) {
+    if (AB_2 + BC_2 == CA_2 ||
+         AB_2 + CA_2 == BC_2 || 
+         CA_2 + BC_2 == AB_2) {
         return TRUE;
-    } else {
+    }
+    else {
         return FALSE;
     }
 }
+
+11:20 2025-02-18

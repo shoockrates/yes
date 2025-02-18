@@ -1,0 +1,58 @@
+.LOG
+
+2-a mini užduotėlė: Patikrinti, ar duoti 3 taškai (koordinatės – sveiki
+skaičiai) yra stataus trikampio viršūnės.
+
+Užduotėlės sprendimas turėtų atrodyti sekančiai:
+
+#define TRUE (1==1)
+#define FALSE (!TRUE)
+
+typedef struct tagPOINT
+{
+    int  x;
+    int  y;
+} POINT;
+
+int isRightTriangle (POINT A, POINT B, POINT C) {
+  if (△ABC - status) {
+    return TRUE;
+  } else {
+    return FALSE;
+  }
+}
+
+
+Šį Questions.txt failą patalpinkite
+U:\www\ADS2025\Questions.txt
+ir jame pateikite savo mini užduotėles sprendimą.
+
+Taip pat, šiame faile galite pateikti individualius klausimus.
+
+----------------------------------------------------------------------------
+
+#include <stdio.h>
+
+#define TRUE (1==1)
+#define FALSE (!TRUE)
+
+typedef struct tagPOINT {
+    int x;
+    int y;
+} POINT;
+
+int returnSquare(int num) {
+    return num * num;
+}
+
+int isRightTriangle(POINT A, POINT B, POINT C) {
+    int AB_2 = returnSquare(A.x - B.x) + returnSquare(A.y - B.y);
+    int BC_2 = returnSquare(B.x - C.x) + returnSquare(B.y - C.y);
+    int CA_2 = returnSquare(C.x - A.x) + returnSquare(C.y - A.y);
+
+    if (AB_2 + BC_2 == CA_2 || AB_2 + CA_2 == BC_2 || CA_2 + BC_2 == AB_2) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}

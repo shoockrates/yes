@@ -45,32 +45,36 @@ ir jame pateikite savo mini užduotėles sprendimą.
 Taip pat, šiame faile galite pateikti savo individualius klausimus.
 
 ----------------------------------------------------------------------------
-10:32 2025-02-25
-
-Kipras Vytautas -> Raimundas;  // right
-Raimundas -> Kristina;  // left
-Raimundas -> Paulius;  // right
-Kristina -> Karolis;  // left
-Karolis -> Ieva;  // left
-Paulius -> Nojus;  // left
-Paulius -> Ugnius;  // right
-Ieva -> Eigintas;  // left
-Ugnius -> Ūla;  // right
-Karolis -> Kasijus;  // right
-Eigintas -> Daniel;  // left
-
-
-
-Spirgys -> Naujikas;  // left
-Spirgys -> Survilaitė;  // right
-Naujikas -> Noreikaitė;  // right
-Noreikaitė -> Paškevičius;  // right
-Paškevičius -> Radzišauskas;  // right
-Radzišauskas -> Savukynas;  // right
-Survilaitė -> Teišerskis;  // right
-Teišerskis -> Urbanavičius;  // right
-Urbanavičius -> Valentinavičiūtė;  // right
-Valentinavičiūtė -> Viteika;  // right
-Savukynas -> Poteiko;  // left
-
 10:54 2025-02-25
+
+
+pagal vardus:
+
+Kipras Vytautas Spirgys -> Ieva Survilaitė; // left
+Kipras Vytautas Spirgys -> Nojus Savukynas; // right
+Ieva Survilaitė -> Eigintas Urbanavičius; // left
+Ieva Survilaitė -> Daniel Poteiko; // right
+Nojus Savukynas -> Kristina Noreikaitė; // left
+Nojus Savukynas -> Raimundas Naujikas; // right
+Kristina Noreikaitė -> Karolis Paškevičius; // left
+Raimundas Naujikas -> Paulius Radzišauskas; // left
+Paulius Radzišauskas -> Ugnius Teišerskis; // left
+Ugnius Teišerskis -> Kasijus Viteika; // left
+Ugnius Teišerskis -> Ūla Valentinavičiūtė; // right
+
+
+Pagal pavardes:
+
+Kipras Vytautas Spirgys -> Daniel Poteiko; // left
+Kipras Vytautas Spirgys -> Paulius Radzišauskas; // right
+Daniel Poteiko -> Kristina Noreikaitė; // left
+Paulius Radzišauskas -> Karolis Paškevičius; // left
+Paulius Radzišauskas -> Raimundas Naujikas; // right
+Karolis Paškevičius -> Eigintas Urbanavičius; // left
+Raimundas Naujikas -> Nojus Savukynas; // left
+Nojus Savukynas -> Ieva Survilaitė; // left
+Ieva Survilaitė -> Ugnius Teišerskis; // left
+Ugnius Teišerskis -> Kasijus Viteika; // left
+Kasijus Viteika -> Ūla Valentinavičiūtė; // right
+
+11:07 2025-02-25

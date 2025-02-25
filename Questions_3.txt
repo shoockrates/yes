@@ -1,0 +1,76 @@
+.LOG
+
+3-ia mini užduotėlė: Pagal pateiktą duomenų rinkinį nupiešti (rankomis)
+dvejetainį paieškos medį. (Duodamas studentų sąrašas: pradedant nuo savęs
+nupiešti medį pagal vardus ir kitą medį pagal pavardes).
+
+„Nupiešti (rankomis)“ čia suprantame tokiu būdu: jei norime piešti tokį
+
+    lapcia
+   ┌───┴───┐
+ apcia  tapcia
+       ┌───┴───┐
+     muska   tuzka
+
+medį, tai „piešimo“ procesą užduotėlės sprendime užrašome:
+
+lapcia -> apcia;  // left
+lapcia -> tapcia; // right
+tapcia -> muska;  // left
+tapcia -> tuzka;  // right
+
+Duodamas studentų sąrašas:
+
+Raimundas	Naujikas
+Kristina	Noreikaitė
+Karolis	Paškevičius
+Paulius	Radzišauskas
+Nojus	Savukynas
+Kipras Vytautas	Spirgys
+Ieva	Survilaitė
+Ugnius	Teišerskis
+Eigintas	Urbanavičius
+Ūla	Valentinavičiūtė
+Kasijus	Viteika
+Daniel	Poteiko
+
+Čia suprantame, jog sąrašas yra ciklinis. Sekantis sąrašo elementas po
+paskutiniojo yra pirmas sąrašo elementas. Sprendimu reikia aprašyti
+„piešimo“ procesą, o ne gauto piešinio rezultatą.
+
+Šį Questions.txt failą patalpinkite
+U:\www\ADS2024\Questions.txt
+ir jame pateikite savo mini užduotėles sprendimą.
+
+Taip pat, šiame faile galite pateikti savo individualius klausimus.
+
+----------------------------------------------------------------------------
+10:32 2025-02-25
+
+Kipras Vytautas -> Raimundas;  // right
+Raimundas -> Kristina;  // left
+Raimundas -> Paulius;  // right
+Kristina -> Karolis;  // left
+Karolis -> Ieva;  // left
+Paulius -> Nojus;  // left
+Paulius -> Ugnius;  // right
+Ieva -> Eigintas;  // left
+Ugnius -> Ūla;  // right
+Karolis -> Kasijus;  // right
+Eigintas -> Daniel;  // left
+
+
+
+Spirgys -> Naujikas;  // left
+Spirgys -> Survilaitė;  // right
+Naujikas -> Noreikaitė;  // right
+Noreikaitė -> Paškevičius;  // right
+Paškevičius -> Radzišauskas;  // right
+Radzišauskas -> Savukynas;  // right
+Survilaitė -> Teišerskis;  // right
+Teišerskis -> Urbanavičius;  // right
+Urbanavičius -> Valentinavičiūtė;  // right
+Valentinavičiūtė -> Viteika;  // right
+Savukynas -> Poteiko;  // left
+
+10:54 2025-02-25

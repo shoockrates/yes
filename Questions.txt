@@ -1,12 +1,9 @@
 .LOG
 
-4-a mini užduotėlė: pademonstruokite `Insertion sort` algoritmą su duotais
-duomenimis (skaičiais):
-4	5	1	7	13	9	0	11	2	10
+6-a mini užduotėlė: External merge sort algoritmas.
 
-Demonstracijai panaudokite simbolius _ ir *:
-- _3 - reikš išrenkama reikšmė 3;
-- 3* - reikš įterpiama reikšmė 3.
+Tarkime faile turime:
+ 4   5   1   7   13   9   0   11   2   10
 
 Šį Questions.txt failą patalpinkite
 U:\www\ADS2025\Questions.txt
@@ -15,19 +12,14 @@ ir jame pateikite savo mini užduotėles sprendimą.
 Taip pat, šiame faile galite pateikti savo individualius klausimus.
 
 ----------------------------------------------------------------------------
-10:26
+10:27 2025-04-01
+Failas_1: 4   5   1   7   13   9   0   11   2   10
 
-_4   5   1   7   13   9   0   11   2   10
-4*  _5   1   7   13   9   0   11   2   10
-4   5*  _1   7   13   9   0   11   2   10
-1*  4   5   _7   13   9   0   11   2   10
-1   4   5   7*  _13   9   0   11   2   10
-1   4   5   7   13*  _9   0   11   2   10
-1   4   5   7   9*  13   _0   11   2   10
-0*  1   4   5   7   9   13   _11   2   10
-0   1   4   5   7   9   11*  13   _2   10
-0   1   2*  4   5   7   9   11   13   _10
-0   1   2   4   5   7   9   10*  11   13
+skirstymas
+Failas_2: (4)   (1)   (13)   (0)     (2)
+Failas_3: (5)    (7)   (9)   (11)    (10)
 
-10:47
-----------------------------------------------------------------------------
+jungimas
+failas_1: (4 5) (1 7) (13 9) (0 11) (2 10)
+
+10:34 2025-04-01

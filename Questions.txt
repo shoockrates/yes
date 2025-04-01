@@ -13,13 +13,42 @@ Taip pat, šiame faile galite pateikti savo individualius klausimus.
 
 ----------------------------------------------------------------------------
 10:27 2025-04-01
-Failas_1: 4   5   1   7   13   9   0   11   2   10
+
+Failas_1 (4) (5) (1) (7) (13) (9) (0) (11) (2) (10)
 
 skirstymas
-Failas_2: (4)   (1)   (13)   (0)     (2)
-Failas_3: (5)    (7)   (9)   (11)    (10)
+
+Failas_2 (4) (5) (1) (7) (13)
+Failas_3 (9) (0) (11) (2) (10)
 
 jungimas
-failas_1: (4 5) (1 7) (13 9) (0 11) (2 10)
 
-10:34 2025-04-01
+Failas_1 (4 9) (0 5) (1 11) (2 7) (10 13)
+
+skirstymas
+
+Failas_2 (4 9) (0 5)
+Failas_3 (1 11) (2 7) (10 13) 
+
+jungimas
+
+Failas_1 (1 4 9 11) (0 2 5 7) (10 13)
+
+skirstymas
+
+Failas_2 (1 4 9 11) (0 2 5 7)
+Failas_3 (10 13)
+
+jungimas
+
+Failas_1 (1 4 9 10 13) (0 2 5 7)
+
+skirstymas
+
+Failas_2 (1 4 9 10 13)
+Failas_3 (0 2 5 7)
+
+jungimas
+
+Failas_1 (0 1 2 4 5 7 9 10 13)
+10:40 2025-04-01

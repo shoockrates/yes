@@ -1,9 +1,30 @@
 .LOG
 
-6-a mini užduotėlė: External merge sort algoritmas.
+7-a mini užduotėlė: Pateiktos funkcijos sudėtingumo įvertinimas.
 
-Tarkime faile turime:
- 4   5   1   7   13   9   0   11   2   10
+Pirma funkcija, kurios sudėtingumą reikia įvertinti:
+int easy(int n, int *a)
+{
+     int i;
+     for (i = n; i > 1; i = i/2) {
+           a[i-1]++;
+     }
+     return n/2;
+}
+Sudėtingumas: ???
+
+Antra funkcija, kurios sudėtingumą reikia įvertinti:
+int simple(int n) {
+     int a, b;
+     if (n <= 1)
+        return 0;
+     else  {
+         a = simple(n-1);
+         b = simple(n-1) / 2;
+         return a + b;
+     }
+}
+Sudėtingumas: ???
 
 Šį Questions.txt failą patalpinkite
 U:\www\ADS2025\Questions.txt
@@ -12,35 +33,31 @@ ir jame pateikite savo mini užduotėles sprendimą.
 Taip pat, šiame faile galite pateikti savo individualius klausimus.
 
 ----------------------------------------------------------------------------
-10:27 2025-04-01
 
-Failas_1:   4   5   1   7   13   9   0   11   2   10
+10:22 2025-04-15
 
-Skirstymas
-Failas_2:  (4)   (1)   (13)  (0)    (2)
-Failas_3:  (5)   (7)   (9)   (11)  (10)
+Pirma funkcija, kurios sudėtingumą reikia įvertinti:
+int easy(int n, int *a)
+{
+     int i;
+     for (i = n; i > 1; i = i/2) {
+           a[i-1]++;
+     }
+     return n/2;
+}
+Sudėtingumas: O(log(n))
 
-Jungimas
-Failas_1:  (4, 5)    (1, 7)    (9, 13)    (0, 11)    (2, 10)
+Antra funkcija, kurios sudėtingumą reikia įvertinti:
+int simple(int n) {
+     int a, b;
+     if (n <= 1)
+        return 0;
+     else  {
+         a = simple(n-1);
+         b = simple(n-1) / 2;
+         return a + b;
+     }
+}
+Sudėtingumas: O(2^n)
 
-Skirstymas
-Failas_2: (4, 5)    (9, 13)   (2, 10)
-Failas_3: (1, 7)    (0, 11)
-
-Jungimas
-Failas_1:  (1, 4, 5, 7)    (0, 9, 11, 13)    (2, 10)
-
-Skirstymas
-Failas_2: (1, 4, 5, 7)    (2, 10)
-Failas_3: (0, 9, 11, 13)
-
-Jungimas
-Failas_1:  (0, 1, 4, 5, 7, 9, 11, 13)    (2, 10)
-
-Skirstymas
-Failas_2: (0, 1, 4, 5, 7, 9, 11, 13)
-Failas_3: (2, 10)
-
-Jungimas
-Failas_1:  (0, 1, 2, 4, 5, 7, 9, 10, 11, 13)
-10:47 2025-04-01
+10:27 2025-04-15

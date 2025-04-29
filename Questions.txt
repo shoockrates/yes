@@ -1,30 +1,30 @@
 .LOG
 
-7-a mini užduotėlė: Pateiktos funkcijos sudėtingumo įvertinimas.
+8-a mini užduotėlė: Testukas su grafais.
 
-Pirma funkcija, kurios sudėtingumą reikia įvertinti:
-int easy(int n, int *a)
-{
-     int i;
-     for (i = n; i > 1; i = i/2) {
-           a[i-1]++;
-     }
-     return n/2;
-}
-Sudėtingumas: ???
+Imkime grafą
+  digraph {
+    A -> {B C D}
+    B -> {C E F}
+    C -> E
+    D -> {E F}
+  }
+https://klevas.mif.vu.lt/~zagunas/ADS2025/graph.png
 
-Antra funkcija, kurios sudėtingumą reikia įvertinti:
-int simple(int n) {
-     int a, b;
-     if (n <= 1)
-        return 0;
-     else  {
-         a = simple(n-1);
-         b = simple(n-1) / 2;
-         return a + b;
-     }
-}
-Sudėtingumas: ???
+Kuri iš sekų nėra teisingas topologinio rikiavimo rezultatas šiam grafui?
+a) ABDCEF
+b) ADBCEF
+c) ABCDFE
+d) ADBCFE
+e) ABDFEC
+
+Kuri iš pateiktų sekų yra negalima, kai šis orientuotas grafas yra apeinamas
+pagal paieškos į gylį (Depth First Search) algoritmą?
+a) ABCEFD
+b) ACEBFD
+c) ADFEBC
+d) ADFBCE
+e) ABFECD
 
 Šį Questions.txt failą patalpinkite
 U:\www\ADS2025\Questions.txt
@@ -34,30 +34,11 @@ Taip pat, šiame faile galite pateikti savo individualius klausimus.
 
 ----------------------------------------------------------------------------
 
-10:22 2025-04-15
+10:18 2025-04-29
 
-Pirma funkcija, kurios sudėtingumą reikia įvertinti:
-int easy(int n, int *a)
-{
-     int i;
-     for (i = n; i > 1; i = i/2) {
-           a[i-1]++;
-     }
-     return n/2;
-}
-Sudėtingumas: O(log(n))
+e) ABDFEC
 
-Antra funkcija, kurios sudėtingumą reikia įvertinti:
-int simple(int n) {
-     int a, b;
-     if (n <= 1)
-        return 0;
-     else  {
-         a = simple(n-1);
-         b = simple(n-1) / 2;
-         return a + b;
-     }
-}
-Sudėtingumas: O(2^n)
+c) ADFEBC
 
-10:27 2025-04-15
+10:27 2025-04-29
+----------------------------------------------------------------------------

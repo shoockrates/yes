@@ -1,30 +1,17 @@
 .LOG
 
-8-a mini užduotėlė: Testukas su grafais.
+9-a mini užduotėlė: Radix sort
 
-Imkime grafą
-  digraph {
-    A -> {B C D}
-    B -> {C E F}
-    C -> E
-    D -> {E F}
-  }
-https://klevas.mif.vu.lt/~zagunas/ADS2025/graph.png
-
-Kuri iš sekų nėra teisingas topologinio rikiavimo rezultatas šiam grafui?
-a) ABDCEF
-b) ADBCEF
-c) ABCDFE
-d) ADBCFE
-e) ABDFEC
-
-Kuri iš pateiktų sekų yra negalima, kai šis orientuotas grafas yra apeinamas
-pagal paieškos į gylį (Depth First Search) algoritmą?
-a) ABCEFD
-b) ACEBFD
-c) ADFEBC
-d) ADFBCE
-e) ABFECD
+| Pradiniai duomenys: | 342 | 103 | 211 | 440 | 332 | 441 |  20 | 210 | 402 | 312 |   4 |
+|---------------------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Po 1-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 2-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 3-io žingsnio:   |     |     |     |     |     |     |     |     |     |     |     |
+| Po 4-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 5-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 6-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 7-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 8-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
 
 Šį Questions.txt failą patalpinkite
 U:\www\ADS2025\Questions.txt
@@ -33,12 +20,17 @@ ir jame pateikite savo mini užduotėles sprendimą.
 Taip pat, šiame faile galite pateikti savo individualius klausimus.
 
 ----------------------------------------------------------------------------
+10:20
 
-10:18 2025-04-29
+| Pradiniai duomenys: | 342 | 103 | 211 | 440 | 332 | 441 |  20 | 210 | 402 | 312 |   4 |
+|---------------------|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|-----|
+| Po 1-o žingsnio:    | 440 | 20  | 210 | 211 | 441 | 342 | 332 | 402 | 312 | 103 |  4  |
+| Po 2-o žingsnio:    | 402 | 103 |  4  | 210 | 211 | 312 | 20  | 332 | 440 | 441 | 342 |
+| Po 3-io žingsnio:   |  4  | 20  | 103 | 210 | 211 | 312 | 332 | 342 | 402 | 440 | 441 |
+| Po 4-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 5-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 6-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 7-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
+| Po 8-o žingsnio:    |     |     |     |     |     |     |     |     |     |     |     |
 
-e) ABDFEC
-
-c) ADFEBC
-
-10:27 2025-04-29
-----------------------------------------------------------------------------
+10:28

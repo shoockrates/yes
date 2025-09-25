@@ -1,6 +1,6 @@
-psql -h pgsql3.mif biblio -f <failo vardas>
 SELECT
   K.Pavadinimas,
   K.ISBN
 FROM Stud.Knyga AS K
 WHERE SUBSTRING(K.ISBN FROM 1 FOR 1) = SUBSTRING(K.ISBN FROM 4 FOR 1);
+

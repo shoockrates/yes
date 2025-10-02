@@ -5,15 +5,13 @@ FROM Stud.Knyga AS K
 WHERE SUBSTRING(K.ISBN FROM 1 FOR 1) = SUBSTRING(K.ISBN FROM 4 FOR 1);
 
 WITH praejes_menuo AS (
-  SELECT
-    date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AS nuo,
-    date_trunc('month', CURRENT_DATE) AS iki
+  SELECT date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AS nuo,
+         date_trunc('month', CURRENT_DATE) AS iki
 )
 SELECT COUNT(DISTINCT e.Nr) AS kiekis
 FROM Stud.Egzempliorius e
 JOIN Stud.Skaitymas s
   ON s.Egzempliorius = e.Nr
-JOIN praejes_menuo pm
-  ON e.Gauta >= pm.nuo
- AND e.Gauta <  pm.iki;
+JOIN praejes_menuo pm ON e.Data >= pm.nuo AND e.Data < pm.iki;
+
 

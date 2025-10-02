@@ -4,36 +4,6 @@ SELECT
 FROM Stud.Knyga AS K
 WHERE SUBSTRING(K.ISBN FROM 1 FOR 1) = SUBSTRING(K.ISBN FROM 4 FOR 1);
 
-WITH last_month AS (
-  SELECT
-    date_trunc('month', current_date) - interval '1 month' AS start_dt,
-    date_trunc('month', current_date) AS end_dt
-)
-SELECT COUNT(*) AS kiekis
-FROM Stud.Egzempliorius e
-CROSS JOIN last_month lm
-WHERE e.gavimo_data >= lm.start_dt::date
-  AND e.gavimo_data <  lm.end_dt::date
-  AND EXISTS (
-    SELECT 1
-    FROM Stud.Skaitymas as s
-    WHERE s.egzempliorius = e.egzempliorius
-  );
-
-
-
--- Praėjęs kalendorinis mėnuo pagal dabartinę datą
-WITH last_month AS (
-  SELECT
-    date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AS m_start,
-    date_trunc('month', CURRENT_DATE) - INTERVAL '1 day'   AS m_end
-)
-SELECT COUNT(DISTINCT e.nr) AS kiekis
-FROM Stud.Egzempliorius e
-JOIN Stud.Skaitymas s ON s.egzempliorius = e.nr
-CROSS JOIN last_month lm
-WHERE e.gavimo_data >= lm.m_start
-  AND e.gavimo_data <= lm.m_end;
 
 
 SELECT COUNT(DISTINCT e.nr) AS kiekis

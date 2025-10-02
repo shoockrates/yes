@@ -9,10 +9,11 @@ WITH praejes_menuo AS (
     date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AS nuo,
     date_trunc('month', CURRENT_DATE) AS iki
 )
-SELECT COUNT(DISTINCT e.Egzempliorius) AS kiekis
+SELECT COUNT(DISTINCT e.Nr) AS kiekis
 FROM Stud.Egzempliorius e
 JOIN Stud.Skaitymas s
-  ON s.Egzempliorius = e.Egzempliorius
+  ON s.Egzempliorius = e.Nr
 JOIN praejes_menuo pm
   ON e.Gauta >= pm.nuo
  AND e.Gauta <  pm.iki;
+

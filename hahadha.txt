@@ -6,8 +6,10 @@ WHERE SUBSTRING(K.ISBN FROM 1 FOR 1) = SUBSTRING(K.ISBN FROM 4 FOR 1);
 
 
 
-SELECT COUNT(DISTINCT e.nr) AS kiekis
-FROM Stud.Egzempliorius e
-JOIN Stud.Skaitymas s ON s.egzempliorius = e.nr
+SELECT COUNT(DISTINCT e.nr) AS borrowed_received_last_month
+FROM Stud.Egzempliorius AS e
+JOIN Stud.Skaitymas AS s ON s.egzempliorius = e.nr
 WHERE e.gavimo_data >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month'
-  AND e.gavimo_data <  date_trunc('month', CURRENT_DATE);
+  AND e.gavimo_data <  date_trunc('month', CURRENT_DATE)
+  AND s.paimta IS NOT NULL;
+

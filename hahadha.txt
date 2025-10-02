@@ -12,10 +12,10 @@ WITH last_month AS (
 SELECT COUNT(*) AS kiekis
 FROM Stud.Egzempliorius e
 CROSS JOIN last_month lm
-WHERE e.Įsigyta >= lm.start_dt::date
-  AND e.Įsigyta <  lm.end_dt::date
+WHERE e.gavimo_data >= lm.start_dt::date
+  AND e.gavimo_data <  lm.end_dt::date
   AND EXISTS (
     SELECT 1
-    FROM Stud.Skaitymas s
-    WHERE s.Egzempliorius = e.Egzempliorius
+    FROM Stud.Skaitymas as s
+    WHERE s.egzempliorius = e.egzempliorius
   );

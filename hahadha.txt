@@ -4,3 +4,19 @@ SELECT
 FROM Stud.Knyga AS K
 WHERE SUBSTRING(K.ISBN FROM 1 FOR 1) = SUBSTRING(K.ISBN FROM 4 FOR 1);
 
+WITH rg AS (
+  SELECT
+    date_trunc('month', current_date) - interval '1 month' AS m_start,
+    date_trunc('month', current_date) - interval '0 month' AS m_end
+)
+SELECT COUNT(DISTINCT e.Egzempliorius) AS egz_paemtu_sk
+FROM Stud.Egzempliorius e
+JOIN rg ON e.Igijimo_data >= rg.m_start::date
+       AND e.Igijimo_data <  rg.m_end::date
+WHERE EXISTS (
+  SELECT 1
+  FROM Stud.Skaitymas s
+  WHERE s.Egzempliorius = e.Egzempliorius
+    AND s.Paimta IS NOT NULL
+    AND s.Paimta >= e.Igijimo_data
+);

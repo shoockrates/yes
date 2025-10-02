@@ -20,6 +20,8 @@ WHERE e.gavimo_data >= lm.start_dt::date
     WHERE s.egzempliorius = e.egzempliorius
   );
 
+
+
 -- Praėjęs kalendorinis mėnuo pagal dabartinę datą
 WITH last_month AS (
   SELECT
@@ -32,3 +34,10 @@ JOIN Stud.Skaitymas s ON s.egzempliorius = e.nr
 CROSS JOIN last_month lm
 WHERE e.gavimo_data >= lm.m_start
   AND e.gavimo_data <= lm.m_end;
+
+
+SELECT COUNT(DISTINCT e.nr) AS kiekis
+FROM Stud.Egzempliorius e
+JOIN Stud.Skaitymas s ON s.egzempliorius = e.nr
+WHERE e.gavimo_data >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month'
+  AND e.gavimo_data <  date_trunc('month', CURRENT_DATE);

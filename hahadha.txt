@@ -4,18 +4,18 @@ SELECT
 FROM Stud.Knyga AS K
 WHERE SUBSTRING(K.ISBN FROM 1 FOR 1) = SUBSTRING(K.ISBN FROM 4 FOR 1);
 
-WITH e_fix AS (
-  SELECT e.Nr,
-         e.ISBN,
-         -- Pakeiskite 'Data' į konkretų pavadinimą, jei žinomas. Čia pervadinama į gavimo_data.
-         e."Data" AS gavimo_data
-  FROM Stud.Egzempliorius e
-),
-praejes_menuo AS (
-  SELECT date_trunc('month', CURRENT_DATE) - INTERVAL '1 month' AS nuo,
-         date_trunc('month', CURRENT_DATE) AS iki
+WITH last_month AS (
+  SELECT
+    date_trunc('month', current_date) - interval '1 month' AS start_dt,
+    date_trunc('month', current_date) AS end_dt
 )
-SELECT COUNT(DISTINCT e_fix.Nr) AS kiekis
-FROM e_fix
-JOIN Stud.Skaitymas s ON s.Egzempliorius = e_fix.Nr
-JOIN praejes_menuo pm ON e_fix.gavimo_data >= pm.nuo AND e_fix.gavimo_data < pm.iki;
+SELECT COUNT(*) AS kiekis
+FROM Stud.Egzempliorius e
+CROSS JOIN last_month lm
+WHERE e.Įsigyta >= lm.start_dt::date
+  AND e.Įsigyta <  lm.end_dt::date
+  AND EXISTS (
+    SELECT 1
+    FROM Stud.Skaitymas s
+    WHERE s.Egzempliorius = e.Egzempliorius
+  );

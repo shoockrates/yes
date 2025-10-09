@@ -11,7 +11,7 @@ SELECT
   COUNT(DISTINCT s.skaitytojas) AS skaitytoju_skaicius,
   COUNT(DISTINCT e.nr)          AS egzemplioriu_kiekis,
   COUNT(DISTINCT e.ISBN)          AS knygu_skaicius,
-  COUNT(*)
+  COUNT(*) as egzemplioriu_ir_skaitytoju_skaicius
 
 FROM Stud.Skaitymas AS s
 JOIN Stud.Egzempliorius AS e ON e.nr = s.egzempliorius

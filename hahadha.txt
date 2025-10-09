@@ -8,8 +8,10 @@ WHERE SUBSTRING(K.ISBN FROM 1 FOR 1) = SUBSTRING(K.ISBN FROM 4 FOR 1);
 --2. Skaičius egzempliorių, kurie buvo gauti bibliotekoje praėjusį mėnesį ir jau buvo paimti skaityti.
 
 SELECT
-  COUNT(DISTINCT s.skaitytojas) AS readers_prev_month,
-  COUNT(DISTINCT e.nr)          AS books_prev_month
+  COUNT(DISTINCT s.skaitytojas) AS skaitytoju_skaicius,
+  COUNT(DISTINCT e.nr)          AS knygu_skaicius,
+  COUNT(DISTINCT e.ISBN)          AS egzemplioriu_kiekis
+
 FROM Stud.Skaitymas AS s
 JOIN Stud.Egzempliorius AS e ON e.nr = s.egzempliorius
 WHERE s.paimta >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month'

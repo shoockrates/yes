@@ -9,8 +9,9 @@ WHERE SUBSTRING(K.ISBN FROM 1 FOR 1) = SUBSTRING(K.ISBN FROM 4 FOR 1);
 
 SELECT
   COUNT(DISTINCT s.skaitytojas) AS skaitytoju_skaicius,
-  COUNT(DISTINCT e.nr)          AS knygu_skaicius,
-  COUNT(DISTINCT e.ISBN)          AS egzemplioriu_kiekis
+  COUNT(DISTINCT e.nr)          AS egzemplioriu_kiekis,
+  COUNT(DISTINCT e.ISBN)          AS knygu_skaicius,
+  COUNT(*)
 
 FROM Stud.Skaitymas AS s
 JOIN Stud.Egzempliorius AS e ON e.nr = s.egzempliorius

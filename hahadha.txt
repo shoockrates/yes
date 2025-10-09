@@ -20,8 +20,12 @@ WHERE s.paimta >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month'
 
 
 
-SELECT table_schema, table_name
-FROM information_schema.tables
-WHERE table_type = 'BASE TABLE'
-  AND table_schema NOT IN ('pg_catalog','information_schema')
-ORDER BY table_schema, table_name;
+SELECT tc.table_schema, tc.table_name, kc.column_name, tc.constraint_name
+FROM information_schema.table_constraints AS tc
+JOIN information_schema.key_column_usage AS kc
+  ON kc.constraint_name = tc.constraint_name
+  AND kc.table_schema = tc.table_schema
+WHERE tc.constraint_type = 'PRIMARY KEY'
+  AND tc.table_schema NOT IN ('pg_catalog','information_schema')
+ORDER BY tc.table_schema, tc.table_name, kc.ordinal_position;
+

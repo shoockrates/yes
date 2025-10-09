@@ -18,3 +18,10 @@ JOIN Stud.Egzempliorius AS e ON e.nr = s.egzempliorius
 WHERE s.paimta >= date_trunc('month', CURRENT_DATE) - INTERVAL '1 month'
   AND s.paimta IS NOT NULL;
 
+
+
+SELECT table_schema, table_name
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE'
+  AND table_schema NOT IN ('pg_catalog','information_schema')
+ORDER BY table_schema, table_name;

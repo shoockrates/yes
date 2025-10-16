@@ -33,3 +33,22 @@ GROUP BY t.table_schema, t.table_name
 ORDER BY t.table_schema, t.table_name;
 
 
+
+
+
+
+--3. Kiekvienai datai, kada turi būti grąžinta bent viena knyga, grąžintinų skirtingų knygų skaičius ir visų jų egzempliorių bendras puslapių skaičius.
+SELECT
+    s."Gražinti" AS due_date,
+    COUNT(DISTINCT k."ISBN") AS book_count,
+    SUM(k."Puslapiai") AS total_pages
+FROM "Skaitymas" AS s
+JOIN "Egzempliorius" AS e
+  ON e."Nr" = s."Egzempliorius"
+JOIN "Knyga" AS k
+  ON k."ISBN" = e."ISBN"
+WHERE s."Gražinti" IS NOT NULL
+GROUP BY s."Gražinti"
+ORDER BY s."Gražinti";
+
+

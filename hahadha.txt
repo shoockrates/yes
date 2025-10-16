@@ -56,6 +56,24 @@ GROUP BY s.grazinti
 ORDER BY s.grazinti;
 
 
+--3.1
+SELECT
+    s.grazinti AS data,
+    COUNT(DISTINCT k.ISBN) AS knygu_skaicius,
+    SUM(k.puslapiai) AS is_viso_puslapiu,
+    COUNT(DISTINCT s.nr) AS egzemplioriu_skaicius,
+    COUNT(*) AS skaitymu_skaicius
+FROM skaitymas AS s
+JOIN egzempliorius AS e
+  ON e.Nr = s.egzempliorius
+JOIN knyga AS k
+  ON k.ISBN = e.ISBN
+WHERE s.grazinti IS NOT NULL
+GROUP BY s.grazinti
+HAVING COUNT(*) = COUNT(DISTINCT s.nr)
+ORDER BY s.grazinti;
+
+
 
 
 -- 4. Vardai ir pavardės skaitytojų, kurie yra negrąžinę daugiau egzempliorių nei vidutiniškai visi skaitytojai yra negrąžinę. Greta pateikti ir tų skaitytojų negrąžintų egzempliorių skaičius.

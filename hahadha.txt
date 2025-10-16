@@ -74,6 +74,28 @@ SELECT
     pr.Vardas,
     pr.Pavardė,
     pr.negrąžinti AS negrąžintų_egz_sk
+
+
+-- 5. Kiekvienai duomenų bazės lentelei - konkretaus skaitinio tipo stulpelių skaičius.
+
+SELECT
+  c.table_schema,
+  c.table_name,
+  COUNT(*) AS numeric_column_count
+FROM information_schema.columns AS c
+JOIN information_schema.tables AS t
+  ON t.table_schema = c.table_schema
+ AND t.table_name   = c.table_name
+ AND t.table_type   = 'BASE TABLE'
+WHERE c.table_schema = 'public'
+  AND c.data_type IN (
+    'smallint','integer','bigint',
+    'decimal','numeric','real','double precision',
+    'smallserial','serial','bigserial','money'
+  )
+GROUP BY c.table_schema, c.table_name
+ORDER BY c.table_schema, c.table_name;
+
 FROM per_reader pr
 CROSS JOIN avg_all a
 WHERE pr.negrąžinti > a.vidurkis

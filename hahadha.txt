@@ -37,11 +37,14 @@ ORDER BY t.table_schema, t.table_name;
 
 
 
---3. Kiekvienai datai, kada turi būti grąžinta bent viena knyga, grąžintinų skirtingų knygų skaičius ir visų jų egzempliorių bendras puslapių skaičius.
+--3. Kiekvienai datai, kada turi būti grąžinta bent viena knyga, grąžintinų skirtingų knygų skaičius 
+-- ir visų jų egzempliorių bendras puslapių skaičius.
 SELECT
     s.grazinti AS due_date,
     COUNT(DISTINCT k.ISBN) AS book_count,
-    SUM(k.Puslapiai) AS total_pages
+    Count(DISTINCT s.nr) AS egzemplioriu_skaicius,
+    Count(*) AS ____,
+SUM(k.Puslapiai) AS total_pages
 FROM skaitymas AS s
 JOIN egzempliorius AS e
   ON e.Nr = s.egzempliorius

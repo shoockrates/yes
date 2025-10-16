@@ -44,11 +44,8 @@ SELECT
     COUNT(DISTINCT k.ISBN) AS knygu_skaicius,
     sum(k.puslapiai) as is_viso_puslapiu
     COUNT(DISTINCT s.nr) AS egzemplioriu_skaicius,
-    COUNT(*) AS _____,                                  
-    CASE
-      WHEN COUNT(DISTINCT s.nr) = COUNT(*) THEN 'Yes'   -- equal
-      ELSE 'No'                                         -- not equal
-    END AS ar_lygus
+    COUNT(*) AS skaitymu_skaicius                         
+
 FROM skaitymas AS s
 JOIN egzempliorius AS e
   ON e.Nr = s.egzempliorius

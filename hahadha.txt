@@ -40,10 +40,11 @@ ORDER BY t.table_schema, t.table_name;
 --3. Kiekvienai datai, kada turi būti grąžinta bent viena knyga, grąžintinų skirtingų knygų skaičius 
 -- ir visų jų egzempliorių bendras puslapių skaičius.
 SELECT
-    s.grazinti AS due_date,
-    COUNT(DISTINCT k.ISBN) AS book_count,
+    s.grazinti AS data,
+    COUNT(DISTINCT k.ISBN) AS knygu_skaicius,
+    sum(k.puslapiai) as is_viso_puslapiu
     COUNT(DISTINCT s.nr) AS egzemplioriu_skaicius,
-    COUNT(*) AS viso,                                   -- total rows for that due_date
+    COUNT(*) AS _____,                                  
     CASE
       WHEN COUNT(DISTINCT s.nr) = COUNT(*) THEN 'Yes'   -- equal
       ELSE 'No'                                         -- not equal

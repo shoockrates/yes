@@ -101,7 +101,7 @@ SELECT
 
 FROM per_reader pr
 CROSS JOIN avg_all a
-WHERE pr.negrąžinti > a.vidurkis
+WHERE pr.negrazinti > a.vidurkis
 ORDER BY pr.negrazinti DESC;
 
 

@@ -76,18 +76,19 @@ ORDER BY s.grazinti;
 
 
 
--- 4. Vardai ir pavardės skaitytojų, kurie yra negrąžinę daugiau egzempliorių nei vidutiniškai visi skaitytojai yra negrąžinę. Greta pateikti ir tų skaitytojų negrąžintų egzempliorių skaičius.
+-- 4. Vardai ir pavardės skaitytojų, kurie yra negrąžinę daugiau egzempliorių nei
+-- vidutiniškai visi skaitytojai yra negrąžinę. Greta pateikti ir tų skaitytojų negrąžintų egzempliorių skaičius.
 
 WITH per_reader AS (
   SELECT
       s.Nr AS skaitytojas_id,
       s.Vardas,
-      s.Pavardė,
-      COUNT(*) FILTER (WHERE sk.Gražinta IS NULL) AS negrąžinti
-  FROM Skaitytojas s
+      s.Pavarde,
+      COUNT(*) FILTER (WHERE sk.grazinta IS NULL) AS negrazinti
+  FROM stud.Skaitytojas s
   LEFT JOIN Skaitymas sk
          ON sk.Skaitytojas = s.Nr
-  GROUP BY s.Nr, s.Vardas, s.Pavardė
+  GROUP BY s.Nr, s.Vardas, s.Pavarde
 ),
 avg_all AS (
   SELECT AVG(negrąžinti::numeric) AS vidurkis
@@ -95,8 +96,8 @@ avg_all AS (
 )
 SELECT
     pr.Vardas,
-    pr.Pavardė,
-    pr.negrąžinti AS negrąžintų_egz_sk
+    pr.Pavarde,
+    pr.negrazinti AS negrazintu_egz_sk
 
 
 -- 4.1 Vardai ir pavardės skaitytojų, kurie yra negrąžinę daugiau egzempliorių nei

@@ -137,6 +137,39 @@ ORDER BY pr.negrąžinti DESC;
 
 
 
+
+
+
+
+--4.3
+WITH negrązinti_skaiciai AS (
+    SELECT 
+        sk.Nr,
+        sk.Vardas,
+        sk.Pavardė,
+        COUNT(sm.Nr) AS negrązintu_egz_skaicius
+    FROM Skaitytojas sk
+    JOIN Skaitymas sm ON sk.Nr = sm.Skaitytojas
+    WHERE sm.Grąžinta IS NULL
+    GROUP BY sk.Nr, sk.Vardas, sk.Pavardė
+),
+vidurkis AS (
+    SELECT AVG(negrązintu_egz_skaicius) AS vid_negrązintu
+    FROM negrązinti_skaiciai
+)
+SELECT 
+    ns.Vardas,
+    ns.Pavardė,
+    ns.negrązintu_egz_skaicius
+FROM negrązinti_skaiciai ns
+CROSS JOIN vidurkis v
+WHERE ns.negrązintu_egz_skaicius > v.vid_negrązintu
+ORDER BY ns.negrązintu_egz_skaicius DESC;
+
+
+
+
+
 -- 5. Kiekvienai duomenų bazės lentelei - konkretaus skaitinio tipo stulpelių skaičius.
 
 select

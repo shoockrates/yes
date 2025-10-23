@@ -91,7 +91,7 @@ WITH per_reader AS (
   GROUP BY s.Nr, s.Vardas, s.Pavarde
 ),
 avg_all AS (
-  SELECT AVG(negrąžinti::numeric) AS vidurkis
+  SELECT AVG(negrazinti::numeric) AS vidurkis
   FROM per_reader
 )
 SELECT

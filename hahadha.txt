@@ -112,29 +112,29 @@ ORDER BY pr.negrazinti DESC;
 -- vidutiniškai visi skaitytojai yra negrąžinę. Greta pateikti ir tų skaitytojų negrąžintų egzempliorių skaičius.
 
 WITH per_reader AS (
-  SELECT
-      s.Nr AS skaitytojas_id,
-      s.Vardas,
-      s.Pavardė,
-      COUNT(*) FILTER (WHERE sk.Gražinta IS NULL) AS negrąžinti
-  FROM Skaitytojas s
-  LEFT JOIN Skaitymas sk
-         ON sk.Skaitytojas = s.Nr
-  GROUP BY s.Nr, s.Vardas, s.Pavardė
+    SELECT
+        s.Nr AS skaitytojas_id,
+        s.Vardas,
+        s.Pavardė,
+        COUNT(*) FILTER (WHERE sk.Grąžinta IS NULL) AS negrąžinti
+    FROM stud.Skaitytojas s
+    LEFT JOIN stud.Skaitymas sk
+           ON sk.Skaitytojas = s.Nr
+    GROUP BY s.Nr, s.Vardas, s.Pavardė
 ),
 avg_all AS (
-  SELECT AVG(negrąžinti::numeric) AS vidurkis
-  FROM per_reader
+    SELECT AVG(negrąžinti::numeric) AS vidurkis
+    FROM per_reader
 )
 SELECT
     pr.Vardas,
     pr.Pavardė,
-    pr.negrąžinti AS negrąžintų_egz_sk,
-    aa.vidurkis AS vidurkis
+    pr.negrąžinti AS negrąžintų_egz_sk
 FROM per_reader pr
-CROSS JOIN avg_all aa
-WHERE pr.negrąžinti > aa.vidurkis
+CROSS JOIN avg_all a
+WHERE pr.negrąžinti > a.vidurkis
 ORDER BY pr.negrąžinti DESC;
+
 
 
 -- 5. Kiekvienai duomenų bazės lentelei - konkretaus skaitinio tipo stulpelių skaičius.

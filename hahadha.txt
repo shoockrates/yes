@@ -86,7 +86,7 @@ WITH per_reader AS (
       s.Pavarde,
       COUNT(*) FILTER (WHERE sk.grazinta IS NULL) AS negrazinti
   FROM stud.Skaitytojas s
-  LEFT JOIN Skaitymas sk
+  LEFT JOIN stud.Skaitymas sk
          ON sk.Skaitytojas = s.Nr
   GROUP BY s.Nr, s.Vardas, s.Pavarde
 ),

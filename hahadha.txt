@@ -99,6 +99,14 @@ SELECT
     pr.Pavarde,
     pr.negrazinti AS negrazintu_egz_sk
 
+FROM per_reader pr
+CROSS JOIN avg_all a
+WHERE pr.negrąžinti > a.vidurkis
+ORDER BY pr.negrazinti DESC;
+
+
+
+
 
 -- 4.1 Vardai ir pavardės skaitytojų, kurie yra negrąžinę daugiau egzempliorių nei
 -- vidutiniškai visi skaitytojai yra negrąžinę. Greta pateikti ir tų skaitytojų negrąžintų egzempliorių skaičius.

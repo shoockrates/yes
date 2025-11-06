@@ -13,13 +13,12 @@ SELECT
   c.table_schema,
   c.table_name,
   COUNT(*) AS numeric_column_count
+
 FROM information_schema.columns AS c
+
 WHERE
-  c.table_schema NOT IN ('pg_catalog', 'information_schema')
-  AND (
-    c.data_type IN ('smallint','integer','bigint','numeric','decimal','real','double precision')
-    OR c.udt_name IN ('int2','int4','int8','serial','bigserial','smallserial')
-  )
+    c.data_type = 'integer'
+
 GROUP BY c.table_schema, c.table_name
 ORDER BY c.table_schema, c.table_name;
 

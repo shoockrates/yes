@@ -6,6 +6,30 @@ WHERE SUBSTRING(K.ISBN FROM 1 FOR 1) = SUBSTRING(K.ISBN FROM 4 FOR 1);
 
 
 
+SELECT
+  c.table_schema,
+  c.table_name,
+  SUM(CASE WHEN c.data_type = 'integer' THEN 1 ELSE 0 END) AS integer_column_count,
+  SUM(CASE WHEN c.data_type = 'smallint' THEN 1 ELSE 0 END) AS smallint_column_count,
+  COUNT(*) AS numeric_column_count
+FROM information_schema.columns AS c
+WHERE c.data_type IN ('integer', 'smallint')
+GROUP BY c.table_schema, c.table_name
+ORDER BY c.table_schema, c.table_name;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

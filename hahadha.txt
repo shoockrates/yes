@@ -254,9 +254,7 @@ where t.table_type = 'BASE TABLE'                                         -- tik
   and c.data_type in (                                                    -- skaitiniai tipai [web:8][web:17][web:20]
     'smallint','integer','bigint',
     'decimal','numeric',
-    'real','double precision',
-    'smallserial','serial','bigserial',
-    'money'
+    'real','double precision'
   )
 group by c.table_schema, c.table_name
 order by c.table_schema, c.table_name;

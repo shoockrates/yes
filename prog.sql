@@ -77,6 +77,7 @@ FROM kisp0844.Zaidejai
 WHERE Zaidejai.Reitingas > 2100;
 
 
+-- ✅ FIXED: Materializuota lentelė dabar naudoja tikras lenteles
 CREATE MATERIALIZED VIEW kisp0844.VidutiniaiReitingai AS
 SELECT 
     V.VarzybuId AS VarzybuID, 
@@ -84,26 +85,41 @@ SELECT
     ROUND(AVG(Z.Reitingas), 2) AS VidutinisReitingas
 FROM kisp0844.Varzybos V
 JOIN kisp0844.Partijos P ON V.VarzybuId = P.Varzybu_Id
-LEFT JOIN kisp0844.ZaidziaBaltais ZB ON P.ID = ZB.PartijosID
-LEFT JOIN kisp0844.ZaidziaJuodais ZJ ON P.ID = ZJ.PartijosID
-LEFT JOIN kisp0844.Zaidejai Z ON Z.ZaidejoId IN (ZB.ZaidejoId, ZJ.ZaidejoId)
+JOIN (
+    -- Collect all players (white and black) from each game
+    SELECT P.Varzybu_Id, ZBalti.ZaidejoId, ZBalti.Reitingas
+    FROM kisp0844.Partijos P
+    JOIN kisp0844.Zaidejai ZBalti ON P.BaltuZaidejoId = ZBalti.ZaidejoId
+    
+    UNION ALL
+    
+    SELECT P.Varzybu_Id, ZJuodi.ZaidejoId, ZJuodi.Reitingas
+    FROM kisp0844.Partijos P
+    JOIN kisp0844.Zaidejai ZJuodi ON P.JuoduZaidejoId = ZJuodi.ZaidejoId
+) Z ON P.Varzybu_Id = Z.Varzybu_Id
 GROUP BY V.VarzybuId, V.Vieta;
 
 -- Atnaujinimo sakinys
 -- REFRESH MATERIALIZED VIEW kisp0844.VidutiniaiReitingai;
 
--- Dalykinė taisyklė #1: Automatinis žaidėjų kiekio atnaujinimas
+-- ✅ FIXED: Dalykinė taisyklė #1 dabar skaičiuoja iš Partijos lentelės
 CREATE OR REPLACE FUNCTION atnaujintiZaidejuKieki()
 RETURNS TRIGGER AS $$
 BEGIN 
     UPDATE kisp0844.Varzybos AS V
     SET MaksimalusZaidejusKiekis = (
-        SELECT COUNT(DISTINCT Z.ZaidejoId)
-        FROM kisp0844.Partijos P
-        LEFT JOIN kisp0844.ZaidziaBaltais ZB ON P.ID = ZB.PartijosID
-        LEFT JOIN kisp0844.ZaidziaJuodais ZJ ON P.ID = ZJ.PartijosID
-        LEFT JOIN kisp0844.Zaidejai Z ON Z.ZaidejoId IN (ZB.ZaidejoId, ZJ.ZaidejoId)
-        WHERE P.Varzybu_Id = COALESCE(NEW.Varzybu_Id, OLD.Varzybu_Id)
+        SELECT COUNT(DISTINCT ZaidejoId)
+        FROM (
+            SELECT BaltuZaidejoId AS ZaidejoId
+            FROM kisp0844.Partijos
+            WHERE Varzybu_Id = COALESCE(NEW.Varzybu_Id, OLD.Varzybu_Id)
+            
+            UNION
+            
+            SELECT JuoduZaidejoId AS ZaidejoId
+            FROM kisp0844.Partijos
+            WHERE Varzybu_Id = COALESCE(NEW.Varzybu_Id, OLD.Varzybu_Id)
+        ) AS AllPlayers
     )
     WHERE V.VarzybuId = COALESCE(NEW.Varzybu_Id, OLD.Varzybu_Id);
     RETURN COALESCE(NEW, OLD);

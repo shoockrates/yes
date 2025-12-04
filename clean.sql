@@ -1,18 +1,13 @@
 -- ============================================================
--- DB VALYMO SKRIPTAS
+-- SIMPLEST: DELETE EVERYTHING YOU OWN
 -- ============================================================
 
-\echo ''
-\echo '======================================'
-\echo 'TRINAMI VISI kisp0844 OBJEKTAI...'
-\echo '======================================'
+\echo 'Deleting all objects owned by you in the database...'
 
--- Visa schema su viskuo
-DROP SCHEMA IF EXISTS kisp0844 CASCADE;
+DROP OWNED BY CURRENT_USER CASCADE;
 
-\echo ''
-\echo 'IŠVALYTA SĖKMINGAI!'
+\echo 'Done! All your objects deleted.'
 \echo ''
 
--- Patikrink ar liko kas nors
-\dn
+-- Check what remains
+\dt kisp0844.*

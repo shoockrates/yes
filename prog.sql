@@ -1,21 +1,20 @@
 --CREATE SCHEMA kisp0844;
 
--- Lentelė 1: Varzybos
+-- 1. Varzybos
 CREATE TABLE kisp0844.Varzybos (
     VarzybuId INTEGER NOT NULL PRIMARY KEY,
     ArReitinguojamas BOOLEAN NOT NULL,
     Vieta VARCHAR(30) NOT NULL,
     Data DATE DEFAULT CURRENT_DATE,
     Kategorija VARCHAR(2) NOT NULL,
-    MaksimalusZaidejusKiekis SMALLINT DEFAULT 0 NOT NULL,  
-    Ivertinimas SMALLINT CHECK (Ivertinimas BETWEEN 0 AND 100)  -- Reikalavimas reikšmėms #1
+    MaksimalusZaidejusKiekis SMALLINT DEFAULT 0 NOT NULL,
+    Ivertinimas SMALLINT CHECK (Ivertinimas BETWEEN 0 AND 100)
 );
 
-
--- Lentelė 2: Zaidejai
+-- 2. Zaidejai
 CREATE TABLE kisp0844.Zaidejai (
     ZaidejoId INTEGER NOT NULL PRIMARY KEY,
-    Pavarde VARCHAR(30) NOT NULL,   
+    Pavarde VARCHAR(30) NOT NULL,
     GimimoData DATE DEFAULT CURRENT_DATE,
     Vardas VARCHAR(30) NOT NULL,
     Reitingas SMALLINT DEFAULT 1000 CHECK (Reitingas BETWEEN 1000 AND 3000),
@@ -25,42 +24,28 @@ CREATE TABLE kisp0844.Zaidejai (
     Butas VARCHAR(10) NOT NULL
 );
 
-
--- Lentelė 3: Partijos
+-- 3. Partijos  (white/black directly here; no ZaidziaBaltais/ZaidziaJuodais tables)
 CREATE TABLE kisp0844.Partijos (
     ID INTEGER NOT NULL PRIMARY KEY,
     Varzybu_Id INTEGER NOT NULL,
+    JuoduZaidejoId INTEGER NOT NULL,
+    BaltuZaidejoId INTEGER NOT NULL,
     LentosNr SMALLINT NOT NULL,
     Turas SMALLINT NOT NULL,
     Rezultatas VARCHAR(10) NOT NULL,
-    FOREIGN KEY (Varzybu_Id) REFERENCES kisp0844.Varzybos(VarzybuId) ON DELETE CASCADE,
+    FOREIGN KEY (Varzybu_Id)     REFERENCES kisp0844.Varzybos(VarzybuId) ON DELETE CASCADE,
+    FOREIGN KEY (JuoduZaidejoId) REFERENCES kisp0844.Zaidejai(ZaidejoId)  ON DELETE CASCADE,
+    FOREIGN KEY (BaltuZaidejoId) REFERENCES kisp0844.Zaidejai(ZaidejoId)  ON DELETE CASCADE,
     CONSTRAINT chk_rezultatas CHECK (Rezultatas IN ('1-0', '0-1', '½-½'))
 );
 
-
+-- 4. ParasytasAtsiliepiamas (M:N tarp Zaidejai ir Varzybos)
 CREATE TABLE kisp0844.ParasytasAtsiliepiamas (
     ZaidejoId INTEGER NOT NULL,
     VarzybuId INTEGER NOT NULL,
     PRIMARY KEY (ZaidejoId, VarzybuId),
     FOREIGN KEY (ZaidejoId) REFERENCES kisp0844.Zaidejai(ZaidejoId) ON DELETE CASCADE,
-    FOREIGN KEY (VarzybuId) REFERENCES kisp0844.Varzybos(VarzybuId) ON DELETE CASCADE
-);
-
-
-CREATE TABLE kisp0844.ZaidziaBaltais (
-    PartijosID INTEGER NOT NULL,
-    ZaidejoId INTEGER NOT NULL,
-    PRIMARY KEY (PartijosID, ZaidejoId),
-    FOREIGN KEY (PartijosID) REFERENCES kisp0844.Partijos(ID) ON DELETE CASCADE,
-    FOREIGN KEY (ZaidejoId) REFERENCES kisp0844.Zaidejai(ZaidejoId) ON DELETE CASCADE
-);
-
-
-CREATE TABLE kisp0844.ZaidziaJuodais (
-    PartijosID INTEGER NOT NULL PRIMARY KEY,
-    ZaidejoId INTEGER NOT NULL,
-    FOREIGN KEY (PartijosID) REFERENCES kisp0844.Partijos(ID) ON DELETE CASCADE,
-    FOREIGN KEY (ZaidejoId) REFERENCES kisp0844.Zaidejai(ZaidejoId) ON DELETE CASCADE
+    FOREIGN KEY (VarzybuId)  REFERENCES kisp0844.Varzybos(VarzybuId)  ON DELETE CASCADE
 );
 
 

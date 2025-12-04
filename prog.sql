@@ -5,9 +5,9 @@ CREATE TABLE kisp0844.Varzybos (
     VarzybuId INTEGER NOT NULL PRIMARY KEY,
     ArReitinguojamas BOOLEAN NOT NULL,
     Vieta VARCHAR(30) NOT NULL,
-    Data DATE DEFAULT CURRENT_DATE,  -- Numatytoji reikšmė #1
+    Data DATE DEFAULT CURRENT_DATE,
     Kategorija VARCHAR(2) NOT NULL,
-    MaksimalusZaidejusKiekis SMALLINT DEFAULT 0 NOT NULL,  -- Numatytoji reikšmė #2
+    MaksimalusZaidejusKiekis SMALLINT DEFAULT 0 NOT NULL,  
     Ivertinimas SMALLINT CHECK (Ivertinimas BETWEEN 0 AND 100)  -- Reikalavimas reikšmėms #1
 );
 
@@ -16,9 +16,9 @@ CREATE TABLE kisp0844.Varzybos (
 CREATE TABLE kisp0844.Zaidejai (
     ZaidejoId INTEGER NOT NULL PRIMARY KEY,
     Pavarde VARCHAR(30) NOT NULL,   
-    GimimoData DATE DEFAULT CURRENT_DATE,  -- Numatytoji reikšmė #3
+    GimimoData DATE DEFAULT CURRENT_DATE,
     Vardas VARCHAR(30) NOT NULL,
-    Reitingas SMALLINT DEFAULT 0 CHECK (Reitingas BETWEEN 1000 AND 2800),  -- Reikalavimas reikšmėms #2
+    Reitingas SMALLINT DEFAULT 1000 CHECK (Reitingas BETWEEN 1000 AND 3000),
     Adresas VARCHAR(50) NOT NULL,
     Gatve VARCHAR(30) NOT NULL,
     Namas VARCHAR(10) NOT NULL,
@@ -34,11 +34,10 @@ CREATE TABLE kisp0844.Partijos (
     Turas SMALLINT NOT NULL,
     Rezultatas VARCHAR(10) NOT NULL,
     FOREIGN KEY (Varzybu_Id) REFERENCES kisp0844.Varzybos(VarzybuId) ON DELETE CASCADE,
-    CONSTRAINT chk_rezultatas CHECK (Rezultatas IN ('1-0', '0-1', '½-½'))  -- Reikalavimas reikšmėms #3
+    CONSTRAINT chk_rezultatas CHECK (Rezultatas IN ('1-0', '0-1', '½-½'))
 );
 
 
--- Lentelė 4: ParasytasAtsiliepiamas (M:N ryšys tarp Varzybos ir Zaidejai)
 CREATE TABLE kisp0844.ParasytasAtsiliepiamas (
     ZaidejoId INTEGER NOT NULL,
     VarzybuId INTEGER NOT NULL,
@@ -48,7 +47,6 @@ CREATE TABLE kisp0844.ParasytasAtsiliepiamas (
 );
 
 
--- Lentelė 5: ZaidziaBaltais (M:N ryšys - partijos su baltais)
 CREATE TABLE kisp0844.ZaidziaBaltais (
     PartijosID INTEGER NOT NULL,
     ZaidejoId INTEGER NOT NULL,
@@ -58,7 +56,6 @@ CREATE TABLE kisp0844.ZaidziaBaltais (
 );
 
 
--- Lentelė 6: ZaidziaJuodais (1:N ryšys - partijos su juodais)
 CREATE TABLE kisp0844.ZaidziaJuodais (
     PartijosID INTEGER NOT NULL PRIMARY KEY,
     ZaidejoId INTEGER NOT NULL,

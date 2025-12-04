@@ -25,7 +25,7 @@ CREATE TABLE kisp0844.zaidejai (
     pavarde VARCHAR(30) NOT NULL,   
     gimimo_data DATE DEFAULT CURRENT_DATE,
     vardas VARCHAR(30) NOT NULL,
-    reitingas SMALLINT DEFAULT 1000 CHECK (reitingas BETWEEN 1000 AND 2800),
+    reitingas SMALLINT DEFAULT 1000 CHECK (reitingas BETWEEN 1000 AND 3000),
     adresas VARCHAR(50) NOT NULL,
     gatve VARCHAR(30) NOT NULL,
     namas VARCHAR(10) NOT NULL,

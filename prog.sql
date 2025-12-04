@@ -1,14 +1,5 @@
--- ================================================================
 -- COMPLETE DATABASE SCHEMA FOR kisp0844
--- ================================================================
 
--- Drop existing objects to allow clean re-creation
-DROP SCHEMA IF EXISTS kisp0844 CASCADE;
-CREATE SCHEMA kisp0844;
-
--- ================================================================
--- TABLE DEFINITIONS
--- ================================================================
 
 -- 1. Varzybos (Tournaments)
 CREATE TABLE kisp0844.Varzybos (

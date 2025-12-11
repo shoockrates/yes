@@ -46,8 +46,8 @@ CREATE TABLE kisp0844.Partijos (
     CONSTRAINT CHK_SkirtingiŽaidėjai CHECK (JuodųŽaidėjuId <> BaltųŽaidėjuId)
 );
 
--- ParašytasAtsiliepimaS (Reviews) junction table
-CREATE TABLE kisp0844.ParašytasAtsiliepimaS (
+-- ParašytasAtsiliepimas (Reviews) junction table
+CREATE TABLE kisp0844.ParašytasAtsiliepimas (
     ŽaidėjoId   INTEGER NOT NULL,
     VaržybųId   INTEGER NOT NULL,
     

@@ -1,6 +1,3 @@
-
-CREATE SCHEMA kisp0844;
-
 -- Žaidėjai (Players) table
 CREATE TABLE kisp0844.Žaidėjai (
     ŽaidėjoId  INTEGER  NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -72,40 +69,54 @@ CREATE INDEX idx_partijos_juodu ON kisp0844.Partijos(JuodųŽaidėjuId);
 CREATE INDEX idx_partijos_baltu ON kisp0844.Partijos(BaltųŽaidėjuId);
 
 -- Views
-CREATE VIEW ŽaidėjųStatistika(ŽaidėjoId, Vardas, Pavardė, Pergalės, Pralaimėjimai, Lygiosios)
-AS 
+CREATE VIEW kisp0844.ŽaidėjųStatistika AS 
 SELECT 
     ž.ŽaidėjoId,
     ž.Vardas,
     ž.Pavardė,
-    SUM(CASE 
+    COALESCE(SUM(CASE 
         WHEN (p.BaltųŽaidėjuId = ž.ŽaidėjoId AND p.Rezultatas = '1-0') OR
              (p.JuodųŽaidėjuId = ž.ŽaidėjoId AND p.Rezultatas = '0-1') 
-        THEN 1 ELSE 0 END) AS Pergalės,
-    SUM(CASE 
+        THEN 1 ELSE 0 END), 0) AS Pergalės,
+    COALESCE(SUM(CASE 
         WHEN (p.BaltųŽaidėjuId = ž.ŽaidėjoId AND p.Rezultatas = '0-1') OR
              (p.JuodųŽaidėjuId = ž.ŽaidėjoId AND p.Rezultatas = '1-0') 
-        THEN 1 ELSE 0 END) AS Pralaimėjimai,
-    SUM(CASE WHEN p.Rezultatas = '1/2-1/2' THEN 1 ELSE 0 END) AS Lygiosios
+        THEN 1 ELSE 0 END), 0) AS Pralaimėjimai,
+    COALESCE(SUM(CASE WHEN p.Rezultatas = '1/2-1/2' THEN 1 ELSE 0 END), 0) AS Lygiosios
 FROM kisp0844.Žaidėjai ž
 LEFT JOIN kisp0844.Partijos p 
     ON ž.ŽaidėjoId = p.BaltųŽaidėjuId OR ž.ŽaidėjoId = p.JuodųŽaidėjuId
 GROUP BY ž.ŽaidėjoId, ž.Vardas, ž.Pavardė;
 
-CREATE VIEW VaržybųDalyviai(VaržybųId, Vieta, Data, DalyviųSkaičiuS)
-AS
+CREATE VIEW kisp0844.VaržybųDalyviai AS
 SELECT 
     v.VaržybųId,
     v.Vieta,
     v.Data,
-    COUNT(DISTINCT CASE WHEN p.BaltųŽaidėjuId IS NOT NULL THEN p.BaltųŽaidėjuId END) +
-    COUNT(DISTINCT CASE WHEN p.JuodųŽaidėjuId IS NOT NULL THEN p.JuodųŽaidėjuId END) AS DalyviųSkaičiuS
+    COUNT(DISTINCT COALESCE(p.BaltųŽaidėjuId, 0)) + 
+    COUNT(DISTINCT COALESCE(p.JuodųŽaidėjuId, 0)) AS DalyviųSkaičius
 FROM kisp0844.Varžybos v
 LEFT JOIN kisp0844.Partijos p ON v.VaržybųId = p.VaržybųId
 GROUP BY v.VaržybųId, v.Vieta, v.Data;
 
+-- Materialized view
+CREATE MATERIALIZED VIEW kisp0844.VaržybųPartijos AS
+SELECT 
+    v.VaržybųId,
+    v.Vieta,
+    v.Data,
+    žb.Vardas AS BaltųVardas,
+    žb.Pavardė AS BaltųPavardė,
+    žj.Vardas AS JuodųVardas,
+    žj.Pavardė AS JuodųPavardė,
+    p.Rezultatas
+FROM kisp0844.Varžybos v
+JOIN kisp0844.Partijos p ON v.VaržybųId = p.VaržybųId
+JOIN kisp0844.Žaidėjai žb ON p.BaltųŽaidėjuId = žb.ŽaidėjoId
+JOIN kisp0844.Žaidėjai žj ON p.JuodųŽaidėjuId = žj.ŽaidėjoId;
+
 -- Triggers
-CREATE OR REPLACE FUNCTION patikrinti_maksimalu_zaidejų_kieki()
+CREATE OR REPLACE FUNCTION kisp0844.patikrinti_maksimalu_zaidejų_kieki()
 RETURNS TRIGGER AS $$
 DECLARE
     dalyviu_skaicius INTEGER;
@@ -133,4 +144,17 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER tikrinti_dalyviu_kieki
 BEFORE INSERT ON kisp0844.Partijos
 FOR EACH ROW
-EXECUTE FUNCTION patikrinti_maksimalu_zaidejų_kieki();
+EXECUTE FUNCTION kisp0844.patikrinti_maksimalu_zaidejų_kieki();
+
+CREATE OR REPLACE FUNCTION kisp0844.refresh_varzybų_partijos()
+RETURNS TRIGGER AS $$
+BEGIN
+    REFRESH MATERIALIZED VIEW kisp0844.VaržybųPartijos;
+    RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER refresh_varzybų_partijos_trigger
+AFTER INSERT OR UPDATE OR DELETE ON kisp0844.Partijos
+FOR EACH STATEMENT
+EXECUTE FUNCTION kisp0844.refresh_varzybų_partijos();

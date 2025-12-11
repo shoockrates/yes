@@ -1,4 +1,9 @@
 -- Drop all triggers first
+
+
+—-----
+
+
 DROP TRIGGER IF EXISTS refresh_varzybų_partijos_trigger ON kisp0844.Partijos;
 DROP TRIGGER IF EXISTS tikrinti_dalyviu_kieki ON kisp0844.Partijos;
 
@@ -27,3 +32,5 @@ DROP TABLE IF EXISTS kisp0844.Žaidėjai CASCADE;
 
 -- Drop schema
 DROP SCHEMA IF EXISTS kisp0844 CASCADE;
+
+

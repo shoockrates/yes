@@ -20,7 +20,7 @@ DROP INDEX IF EXISTS kisp0844.idx_partijos_juodu;
 DROP INDEX IF EXISTS kisp0844.idx_partijos_baltu;
 
 -- Drop tables in correct order (respecting foreign keys)
-DROP TABLE IF EXISTS kisp0844.ParašytasAtsiliepimaS CASCADE;
+DROP TABLE IF EXISTS kisp0844.ParašytasAtsiliepimas CASCADE;
 DROP TABLE IF EXISTS kisp0844.Partijos CASCADE;
 DROP TABLE IF EXISTS kisp0844.Varžybos CASCADE;
 DROP TABLE IF EXISTS kisp0844.Žaidėjai CASCADE;
